@@ -13,7 +13,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT # Optional, but good practice
+      bearerFormat: JWT 
   schemas:
     Signup:
       type: 'object'
