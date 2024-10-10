@@ -1,0 +1,162 @@
+openapi: '3.0.0'
+info:
+  description: 'API documentation for user operations'
+  version: '1.0.0'
+  title: 'User API'
+servers:
+  - url: 'http://localhost:3000/api'
+tags:
+  - name: 'User'
+    description: 'Operations about user'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # Optional, but good practice
+  schemas:
+    Signup:
+      type: 'object'
+      required:
+        - 'username'
+        - 'email'
+        - 'password'
+        - 'firstName'
+        - 'lastName'
+        - 'dateOfBirth'
+        - 'phoneNumber'
+        - 'address'
+      properties:
+        username:
+          type: 'string'
+          default: 'username'
+        email:
+          type: 'string'
+          default: 'test@test.com'
+        password:
+          type: 'string'
+          default: 'Password@123'
+        firstName:
+          type: 'string'
+          default: 'Jack'
+        lastName:
+          type: 'string'
+          default: 'Umraliya'
+        dateOfBirth:
+          type: 'string'
+          default: '07-25-2002'
+        phoneNumber:
+          type: 'string'
+          default: '1234567890'
+        address:
+          type: 'string'
+          default: '123, Test Street, Test City, Test State, Test Country'
+        profilePicture:
+          type: 'string'
+          default: 'https://via.placeholder.com/150'
+    Login:
+      type: 'object'
+      required:
+        - 'usernameORemail'
+        - 'password'
+      properties:
+        usernameORemail:
+          type: 'string'
+          default: 'username'
+        password:
+          type: 'string'
+          default: 'Password@123'
+
+paths:
+  /optmize-data:
+    get:
+      tags:
+        - 'Optimzation Data'
+      summary: 'Optimize'
+      description: 'Optimize the code'
+      operationId: 'optimize'
+      responses:
+        200:
+          description: 'Code optimized'
+        default:
+          description: 'Unexpected error'
+  /user/signup:
+    post:
+      tags:
+        - 'User'
+      summary: 'Sign up'
+      description: 'Create a new user'
+      operationId: 'signup'
+      requestBody:
+        description: 'User object that needs to be added'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Signup'
+      responses:
+        200:
+          description: 'User created'
+        default:
+          description: 'Unexpected error'
+  /user/login:
+    post:
+      tags:
+        - 'User'
+      summary: 'Login'
+      description: 'User login'
+      operationId: 'login'
+      requestBody:
+        description: 'User login object'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        200:
+          description: 'User logged in'
+        default:
+          description: 'Unexpected error'
+  /user/logout:
+    get:
+      tags:
+        - 'User'
+      summary: 'Logout'
+      description: 'User logout'
+      operationId: 'logout'
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: 'User logged out'
+        default:
+          description: 'Unexpected error'
+  /user/me:
+    get:
+      tags:
+        - 'User'
+      summary: 'Me'
+      description: 'Get user profile'
+      operationId: 'me'
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: 'User profile'
+        default:
+          description: 'Unexpected error'
+  /random-joke:
+    get:
+      tags:
+        - 'User'
+      summary: 'Random joke'
+      description: 'Get a random joke'
+      operationId: 'randomJoke'
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: 'Random joke'
+        default:
+          description: 'Unexpected error'
